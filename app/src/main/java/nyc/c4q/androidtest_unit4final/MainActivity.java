@@ -1,15 +1,26 @@
 package nyc.c4q.androidtest_unit4final;
 
+import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private ColorAdapter adapter;
     protected HashMap<String, String> colorDict;
@@ -28,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         // TODO: adding all the colors and their values would be tedious, instead fetch it from the url below
         // https://raw.githubusercontent.com/operable/cog/master/priv/css-color-names.json
 
+
+
         colorsList = new ArrayList<>();
         String[] names = new String[] {"blue", "red", "purple", "indigo", "orange", "brown", "black", "green"};
         for(String n: names) colorsList.add(n);
@@ -38,8 +51,36 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // TODO: Add options menu with the item "Info" which is always visible
-    // TODO: When "Info" menu item is clicked, display the fragment InfoFragment
-    // TODO: If InfoFragment is already visible and I click "Info", remove InfoFragment from the view.
+
+
     // Link to creating options menu: https://github.com/C4Q/AC-Android/tree/v2/Android/Lecture-9-Menus-and-Navigation#anatomy-of-menu-xml
+
+    // TODO: Add options menu with the item "Info" which is always visible
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu,menu);
+        return true;
+    }
+
+    // TODO: When "Info" menu item is clicked, display the fragment InfoFragment
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        Fragment fragment = null;
+
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.info_fragment,fragment);
+        fragmentTransaction.commit();
+
+        // TODO: If InfoFragment is already visible and I click "Info", remove InfoFragment from the view.
+        if(fragment != null) getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        return super.onOptionsItemSelected(item);
+
+
+        }
+    }
 }

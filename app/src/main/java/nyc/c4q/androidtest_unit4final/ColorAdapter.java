@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
             // TODO: When the name in a viewHolder is clicked,
             // display a long toast with the text "{color_name} has a HEX value of {color_hex}
             // for example: "blue has a HEX value of #0000ff"
+            Toast.makeText(getApplicationContext(), colorNames + "has a HEX value of " + colorDict,
+                    Toast.LENGTH_LONG).show();
         }
     }
 
