@@ -19,12 +19,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
 
     private ColorAdapter adapter;
     protected HashMap<String, String> colorDict;
     protected List<String> colorsList;
+    private Colors color;
+    private String colorURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,14 @@ public class MainActivity extends AppCompatActivity {
         colorDict.put("blue", "#0000ff");
         colorDict.put("red", "#ff0000");
         // TODO: adding all the colors and their values would be tedious, instead fetch it from the url below
-        // https://raw.githubusercontent.com/operable/cog/master/priv/css-color-names.json
+        //
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        colorDict = retrofit.create(Colors.class);
 
 
 
